@@ -2,6 +2,7 @@ import { AUTH, LOGOUT } from '../../constants/actionTypes';
 import * as api from '../../services/api';
 import * as paths from '../../constants/apiPaths';
 
+//api call to signup and signin the user
 export const authenticate = (path, data, navigate) => async (dispatch) => {
   try {
     const user = await api.post(path, data);
@@ -15,6 +16,7 @@ export const authenticate = (path, data, navigate) => async (dispatch) => {
   }
 };
 
+// api call to authorise the user using jwt token generated on backend
 export const refreshToken = (navigate) => async (dispatch) => {
   try {
     const user = await api.get(paths.REFRESH_TOKEN);

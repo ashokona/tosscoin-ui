@@ -1,26 +1,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, createSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import DeleteIcon from '@mui/icons-material/Delete';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
-import { get } from '../../services/api';
 import { fetchCoinDetails, fetchLastGuess, updateGuess } from '../../store/actions/coin';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // const user = useSelector((state) => state?.auth.user);
   const coin = useSelector((state) => state?.coin.coin);
   const guess = useSelector((state) => state?.coin.guess);
   React.useEffect(async () => {
@@ -28,6 +21,10 @@ export default function Home() {
     if (!coin) {
       dispatch(fetchCoinDetails())
       dispatch(fetchLastGuess())
+
+      // uncomment this for live detials fetching, since poc I have added set interval, 
+      // but we should go with an socket approach or any other approach based on the architecture
+
       // setInterval(() => {
       //   dispatch(fetchCoinDetails())
       //   dispatch(fetchLastGuess())
@@ -45,7 +42,6 @@ export default function Home() {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', flexDirection: 'column' }}>
-      {/* {user} */}
       <Typography variant="h5" component="div">
         {`Welcome ${guess?.name}, so far you have made ${guess?.success} Successfull guessess and ${guess?.failed} failed gusses.`}
       </Typography>
